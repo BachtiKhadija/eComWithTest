@@ -1,6 +1,6 @@
 import { createSlice} from '@reduxjs/toolkit';
 
-const initialState = {
+export const initialState = {
   produits: [
     {
       id: 1,
@@ -28,9 +28,9 @@ const initialState = {
   selectedCategory: 'Toutes'
 };
 
-const produitSlice = createSlice({
+const ProductSlice = createSlice({
   name: 'produits',
-  initialState,
+  initialState:initialState,
 
   reducers: {
     addProduit: (state, action) => {
@@ -43,6 +43,7 @@ const produitSlice = createSlice({
 
       if (index !== -1) {
         state.produits[index] = action.payload;
+
       }
     },
 
@@ -66,7 +67,7 @@ export const {
   deleteProduit,
   setSearchTerm,
   setSelectedCategory
-} = produitSlice.actions;
+} = ProductSlice.actions;
 
 
-export default produitSlice.reducer;
+export default ProductSlice.reducer;
