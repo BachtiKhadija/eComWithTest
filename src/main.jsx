@@ -6,6 +6,7 @@ import Store from './Store.jsx'
 import { Provider } from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { nanoid } from '@reduxjs/toolkit';
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 createRoot(document.getElementById('root')).render(

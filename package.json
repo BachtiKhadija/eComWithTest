@@ -11,6 +11,12 @@
     "test:coverage": "vitest run --coverage",
     "preview": "vite preview"
   },
+  "sonar": {
+    "host.url": "http://localhost:9000",
+    "projectKey": "shoppingcart",
+    "projectName": "Shopping Cart"
+  }
+  ,
   "dependencies": {
     "@reduxjs/toolkit": "^2.14.0",
     "@testing-library/react": "^16.3.3",

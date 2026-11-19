@@ -25,7 +25,7 @@ const Filter=()=>{
             className="form-check-input"
             type="radio"
             name="categorie"
-       
+            id="Toutes"
             value="Toutes"
             checked={selectedCategory === "Toutes"}
             onChange={() =>
@@ -33,7 +33,7 @@ const Filter=()=>{
             }
           />
 
-          <label className="form-check-label" >
+          <label className="form-check-label" htmlFor='Toutes' >
            Toutes
           </label>
 

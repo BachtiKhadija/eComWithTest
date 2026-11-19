@@ -1,4 +1,6 @@
 
+import { describe, it, expect } from 'vitest';
+
 import PanierReducer, {
   addToCart,
   removeFromCart,
@@ -8,14 +10,12 @@ import PanierReducer, {
 
 import store from '../Store';
 
-// Récupérer le state initial du panier depuis le store
-const initialState = store.panier.items;
+// Récupérer le state initial du panier
+const initialState = store.getState().panier;
 
 describe('Tests unitaires PanierSlice', () => {
 
-
-
-
+  // Test 1 : Ajouter un produit au panier
   it('doit ajouter un produit au panier', () => {
     const produit = {
       id: 1,
@@ -29,17 +29,17 @@ describe('Tests unitaires PanierSlice', () => {
       addToCart(produit)
     );
 
-    expect(newState.panier.items).toHaveLength(1);
+    expect(newState.items).toHaveLength(1);
 
-    expect(newState.panier.items[0]).toEqual({
+    expect(newState.items[0]).toEqual({
       ...produit,
       qte: 1
     });
   });
 
-
+  // Test 2 : Incrémenter la quantité si le produit existe déjà
   it('doit incrémenter la quantité si le produit existe déjà', () => {
-   const produit = {
+    const produit = {
       id: 1,
       intitule: 'Ordinateur portable',
       prix: 7500,
@@ -47,18 +47,19 @@ describe('Tests unitaires PanierSlice', () => {
     };
 
     let newState = PanierReducer(
-      initialState,
+      { items: [] },
       addToCart(produit)
     );
-     newState = PanierReducer(
-      initialState,
-      incrementQte(1)
+
+    newState = PanierReducer(
+      newState,
+      addToCart(produit)
     );
-  
-    expect(newState.panier.items[0].qte).toBe(2);
+
+    expect(newState.items[0].qte).toBe(2);
   });
 
-
+  // Test 3 : Supprimer un produit du panier
   it('doit supprimer un produit du panier', () => {
     const stateWithProducts = {
       items: [
@@ -72,11 +73,11 @@ describe('Tests unitaires PanierSlice', () => {
       removeFromCart(1)
     );
 
-    expect(newState.panier.items).toHaveLength(1);
-    expect(newState.panier.items[0].id).toBe(2);
+    expect(newState.items).toHaveLength(1);
+    expect(newState.items[0].id).toBe(2);
   });
 
-
+  // Test 4 : Incrémenter la quantité d'un produit
   it('doit incrémenter la quantité d\'un produit', () => {
     const stateWithProduct = {
       items: [
@@ -89,10 +90,10 @@ describe('Tests unitaires PanierSlice', () => {
       incrementQte(1)
     );
 
-    expect(newState.panier.items[0].qte).toBe(2);
+    expect(newState.items[0].qte).toBe(2);
   });
 
-
+  // Test 5 : Décrémenter la quantité d'un produit
   it('doit décrémenter la quantité d\'un produit', () => {
     const stateWithProduct = {
       items: [
@@ -105,10 +106,10 @@ describe('Tests unitaires PanierSlice', () => {
       decrementQte(1)
     );
 
-    expect(newState.panier.items[0].qte).toBe(1);
+    expect(newState.items[0].qte).toBe(1);
   });
 
-  // 7. Tester decrementQte avec quantité égale à 1
+  // Test 6 : Supprimer le produit si sa quantité atteint zéro
   it('doit supprimer le produit si sa quantité atteint zéro', () => {
     const stateWithProduct = {
       items: [
@@ -121,8 +122,7 @@ describe('Tests unitaires PanierSlice', () => {
       decrementQte(1)
     );
 
-    expect(newState.panier.items).toHaveLength(0);
+    expect(newState.items).toHaveLength(0);
   });
-
 
 });

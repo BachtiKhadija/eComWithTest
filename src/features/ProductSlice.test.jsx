@@ -9,16 +9,14 @@ import ProductReducer, {
   setSelectedCategory
 } from './ProductSlice';
 
-
-
 import store from '../Store';
 
-// Importer le state initial
-const initialState = store.getState().product.produits;
+// Récupérer le state initial de ProductSlice
+const initialState = store.getState().product;
 
 describe('Tests unitaires ProductSlice', () => {
 
-
+  // Test 1 : Ajouter un nouveau produit
   it('doit ajouter un nouveau produit', () => {
     const produit = {
       intitule: 'Tablette',
@@ -32,12 +30,12 @@ describe('Tests unitaires ProductSlice', () => {
       addProduit(produit)
     );
 
-    expect(newState.product.produits.length).toBe(4);
-    expect(newState.product.produits[3].intitule).toBe("Tablette");
-    expect(newState.product.produits[3].id).toBeDefined();
+    expect(newState.produits.length).toBe(4);
+    expect(newState.produits[3].intitule).toBe('Tablette');
+    expect(newState.produits[3].id).toBeDefined();
   });
 
-
+  // Test 2 : Modifier un produit existant
   it('doit modifier un produit existant', () => {
     const produitModifie = {
       ...initialState.produits[0],
@@ -50,39 +48,41 @@ describe('Tests unitaires ProductSlice', () => {
       updateProduit(produitModifie)
     );
 
-    expect(newState.product.produits[0].intitule).toBe('Ordinateur Gaming');
-    expect(newState.product.produits[0].prix).toBe(9500);
+    expect(newState.produits[0].intitule).toBe('Ordinateur Gaming');
+    expect(newState.produits[0].prix).toBe(9500);
   });
 
-
+  // Test 3 : Supprimer un produit
   it('doit supprimer un produit', () => {
     const newState = ProductReducer(
       initialState,
       deleteProduit(1)
     );
 
-    expect(newState.product.produits).toHaveLength(2);
-    expect(newState.product.produits.find(p => p.id === 1)).toBeUndefined();
+    expect(newState.produits).toHaveLength(2);
+    expect(
+      newState.produits.find(p => p.id === 1)
+    ).toBeUndefined();
   });
 
-
+  // Test 4 : Modifier le terme de recherche
   it('doit modifier le terme de recherche', () => {
     const newState = ProductReducer(
       initialState,
       setSearchTerm('Smartphone')
     );
 
-    expect(newState.product.searchTerm).toBe('Smartphone');
+    expect(newState.searchTerm).toBe('Smartphone');
   });
 
-  // 6. Tester setSelectedCategory
+  // Test 5 : Modifier la catégorie sélectionnée
   it('doit modifier la catégorie sélectionnée', () => {
     const newState = ProductReducer(
       initialState,
       setSelectedCategory('Informatique')
     );
 
-    expect(newState.product.selectedCategory).toBe('Informatique');
+    expect(newState.selectedCategory).toBe('Informatique');
   });
 
 });

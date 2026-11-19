@@ -15,7 +15,7 @@ const ProductForm=() =>{
     state => state.product.produits
   );
 
-const categories = ["Toutes","Téléphonie","Accessoires","Livres"];
+const categories = ["Toutes","Informatique","Téléphonie","Accessoires","Livres"];
 
   const produitExiste = produits.find(
     p => p.id === Number(id)
@@ -80,10 +80,11 @@ const categories = ["Toutes","Téléphonie","Accessoires","Livres"];
           <form onSubmit={handleSubmit}>
 
             <div className="mb-3">
-              <label className="form-label">Intitulé</label>
+              <label htmlFor='intitule' className="form-label">Intitulé</label>
               <input
                 type="text"
                 name="intitule"
+                id="intitule"
                 className="form-control"
                 value={formData.intitule}
                 onChange={handleChange}
@@ -92,10 +93,11 @@ const categories = ["Toutes","Téléphonie","Accessoires","Livres"];
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Prix (DH)</label>
+              <label className="form-label" htmlFor="prix">Prix (DH)</label>
               <input
                 type="number"
                 name="prix"
+                id="prix"
                 className="form-control"
                 min="0"
                 step="0.01"
@@ -106,8 +108,8 @@ const categories = ["Toutes","Téléphonie","Accessoires","Livres"];
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Catégorie</label>
-              <select className="form-select" name="categorie" value={formData.categorie} onChange={handleChange}>
+              <label className="form-label" htmlFor="categorie">Catégorie</label>
+              <select id="categorie" className="form-select" name="categorie" value={formData.categorie} onChange={handleChange}>
                
                 {
                     categories.map((c,pos)=>
@@ -118,10 +120,11 @@ const categories = ["Toutes","Téléphonie","Accessoires","Livres"];
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Image (URL)</label>
+              <label className="form-label" htmlFor="image">Image (URL)</label>
               <input
                 type="url"
                 name="image"
+                id="image"
                 className="form-control"
                 value={formData.image}
                 onChange={handleChange}
